@@ -1,4 +1,4 @@
-const fetch =  require("dva").fetch;
+const fetch = require("dva").fetch;
 
 export async function request(url, options) {
 
@@ -8,7 +8,6 @@ export async function request(url, options) {
     ...options.headers,
   }
   options.body = JSON.stringify(options.body);
-
   return await fetch(url, options)
     .then(response => response.json())
     .catch(error => console.log(error));

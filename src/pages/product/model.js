@@ -12,17 +12,17 @@ export default {
   },
   effects: {
     * list({ }, { put }) {
-      const data = yield request(`http://localhost:8080/product`, { method: 'GET' });
+      const data = yield request(`/api/product`, { method: 'GET' });
       yield put({ type: 'setData', payload: data });
     },
 
     * save({ payload: values }, { put }) {
-      yield request(`http://localhost:8080/product`, { method: 'POST', body: values })
+      yield request(`/api/product`, { method: 'POST', body: values })
       yield put({ type: 'list' });
     },
 
     * delete({ payload: id }, { put }) {
-      yield request(`http://localhost:8080/product/${id}`, { method: 'DELETE' });
+      yield request(`/api/product/${id}`, { method: 'DELETE' });
       yield put({ type: 'list' });
     },
   },

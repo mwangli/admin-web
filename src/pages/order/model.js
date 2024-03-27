@@ -12,15 +12,15 @@ export default {
   },
   effects: {
     * listNew({ }, { put }) {
-      const data = yield request('http://localhost:8080/order/new', { method: 'GET' });
+      const data = yield request('/api/order/list', { method: 'GET' });
       yield put({ type: 'save', payload: data });
     },
     * listOld({ }, { put }) {
-      const data = yield request('http://localhost:8080/order/old', { method: 'GET' });
+      const data = yield request('/api/order/old', { method: 'GET' });
       yield put({ type: 'save', payload: data });
     },
     * getOldOrders({ }, { put }) {
-      const data = yield request('http://localhost:8080/order/old', { method: 'GET' });
+      const data = yield request('/api/order/old', { method: 'GET' });
       console.log(data);
       yield put({ type: 'save', payload: data });
     },
@@ -46,10 +46,10 @@ export default {
     setup({ dispatch, history }) {
       return history.listen(
         ({ pathname }) => {
-          if (pathname === '/order/new') {
+          if (pathname === '/api/order/new') {
             dispatch({ type: 'listNew' });
           }
-          if (pathname === '/order/old') {
+          if (pathname === '/api/order/old') {
             dispatch({ type: 'listOld' });
           }
         });
