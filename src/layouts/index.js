@@ -57,94 +57,31 @@ class SiderDemo extends React.Component {
             openKeys={this.state.openKeys}
             onOpenChange={this.onOpenChange}
           >
-            <SubMenu
-              key="order"
-              title={
-                <span>
-                  <Icon type="switcher" />
-                  <span>订单管理</span>
-                </span>
-              }
-            >
-              <Menu.Item key="/order/new">
-                <Link to="/order/new">
+              <Menu.Item key="/order">
+                <Link to="/order">
                   <Icon type="dollar" />
-                  <span>新增订单</span>
+                  <span>订单管理</span>
                 </Link>
               </Menu.Item>
-              <Menu.Item key="/order/old">
-                <Link to="/order/old">
-                  <Icon type="history" />
-                  <span>历史订单</span>
-                </Link>
-              </Menu.Item>
-            </SubMenu>
-            <SubMenu
-              key="product"
-              title={
-                <span>
-                  <Icon type="block" />
-                  <span>商品管理</span>
-                </span>
-              }
-            >
-              <Menu.Item key="/product/onSale">
-                <Link to="/product/onSale">
-                  <Icon type="shopping-cart" />
-                  <span>在售商品</span>
-                </Link>
-              </Menu.Item>
-              <Menu.Item key="/product/offSale">
-                <Link to="/product/offSale">
+              <Menu.Item key="/product">
+                <Link to="/product">
                   <Icon type="shopping" />
-                  <span>下架商品</span>
+                  <span>商品管理</span>
                 </Link>
               </Menu.Item>
-            </SubMenu>
-            <SubMenu
-              key="category"
-              title={
-                <span>
-                  <Icon type="appstore" />
-                  <span>品类管理</span>
-                </span>
-              }
-            >
-              <Menu.Item key="/category/class">
-                <Link to="/category/class">
+
+              <Menu.Item key="/category">
+                <Link to="/category">
                   <Icon type="bars" />
                   <span>分类管理</span>
                 </Link>
               </Menu.Item>
-              <Menu.Item key="/category/tags">
-                <Link to="/category/tags">
-                  <Icon type="tags" />
-                  <span>标签商品</span>
-                </Link>
-              </Menu.Item>
-            </SubMenu>
-            <SubMenu
-              key="user"
-              title={
-                <span>
-                  <Icon type="team" />
-                  <span>用户管理</span>
-                </span>
-              }
-            >
-              <Menu.Item key="/user/customer">
-                <Link to="/product">
+              <Menu.Item key="/user">
+                <Link to="/user">
                   <Icon type="user-delete" />
-                  <span>客户信息</span>
+                  <span>用户管理</span>
                 </Link>
               </Menu.Item>
-              <Menu.Item key="/user/author">
-                <Link to="/product">
-                  <Icon type="user-add" />
-                  <span>作者信息</span>
-                </Link>
-              </Menu.Item>
-            </SubMenu>
           </Menu>
         </Sider>
         <Layout>
