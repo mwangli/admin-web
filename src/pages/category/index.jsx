@@ -5,7 +5,7 @@ function Category({ dispatch, data, loading }) {
 
   function deleteHandler(id) {
     dispatch({
-      type: 'order/remove',
+      type: 'category/remove',
       payload: id,
     });
     message.success("删除成功")
@@ -32,19 +32,19 @@ function Category({ dispatch, data, loading }) {
 
   const columns = [
     {
-      title: 'ID',
+      title: '分类ID',
       dataIndex: 'id',
       key: 'id',
     },
     {
-      title: '名称',
+      title: '分类名称',
       dataIndex: 'name',
       key: 'name',
 
     },
     {
-      title: '描述',
-      dataIndex: 'desription',
+      title: '分类描述',
+      dataIndex: 'description',
       key: 'description',
 
     },
@@ -53,16 +53,15 @@ function Category({ dispatch, data, loading }) {
       key: 'operation',
       render: (record) =>
         <Button type="primary" size="small" ghost="true" icon ="gift"
-        onClick={deliveryHandler.bind(null, record.id)}>发货</Button>
-
+        onClick={deleteHandler.bind(null, record.id)}>删除</Button>
     },
   ];
   const pagination = {
-    pageSize:5
+    pageSize:10
   };
   return (
     <div>
-      <Button type="primary" onClick={getOldOrders.bind(null,null)}>历史订单</Button>
+      <Button type="primary" >新增分类</Button>
       <Table
         pagination={pagination}
         loading={loading}

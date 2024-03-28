@@ -4,4 +4,4 @@
 3. yarn & yarn start 启动
 4. yarn build 构建打包部署
 5. 高于node16版本，执行： 
-   set -g NODE_OPTIONS=--openssl-legacy-provider
+   set NODE_OPTIONS=--openssl-legacy-provider

@@ -1,6 +1,6 @@
 import { connect } from 'dva';
 import { Table, Button, Divider, message, Tooltip, Drawer } from 'antd';
-import DrawerInfo from '../../../components/DrawerInfo'
+import DrawerInfo from '@/components/DrawerInfo'
 
 function Order({ dispatch, data, loading }) {
 
@@ -19,18 +19,6 @@ function Order({ dispatch, data, loading }) {
     });
   }
 
-  function getOldOrers(id) {
-    debugger
-    dispatch({
-      type: 'order/getOldOrders',
-    });
-  }
-
-  function deliveryHandler(id) {
-    dispatch({
-      type: 'order/delivery',
-    });
-  }
   const columns = [
     {
       title: '商品',
@@ -74,13 +62,20 @@ function Order({ dispatch, data, loading }) {
         <div>
           <DrawerInfo/>
           <Divider type="vertical"/>
-          <a>删除</a>
+          <a onClick={deleteHandler.bind(null,record.id)}>删除</a>
         </div>
     },
   ];
+  const pagination = {
+    pageSize:8,
+    current:1,
+    // total:100
+  };
   return (
     <div>
+      <Button type={"primary"}>新增订单</Button>
       <Table
+        pagination={pagination}
         loading={loading}
         columns={columns}
         dataSource={data}

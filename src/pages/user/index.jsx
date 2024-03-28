@@ -1,7 +1,7 @@
 import { connect } from 'dva';
 import { Table, Button, Divider,Avatar,message } from 'antd';
 
-import ModalForm from '../../components/ModalForm';
+import ModalForm from '@/components/ModalForm';
 
 function Author({ dispatch, data, loading }) {
 

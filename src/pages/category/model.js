@@ -16,11 +16,6 @@ export default {
       yield put({type: 'save', payload: data});
     },
 
-    * listTags({}, {put}) {
-      const data = yield request('/api/tag/list', {method: 'POST', body: {}});
-      yield put({type: 'save', payload: data});
-    },
-
     * create({payload: values}, {put}) {
       yield request(`/api/category`, {method: 'POST', body: values})
       yield put({type: 'list'});
@@ -41,11 +36,8 @@ export default {
     setup({dispatch, history}) {
       return history.listen(
         ({pathname}) => {
-          if (pathname === '/category/class') {
+          if (pathname === '/category') {
             dispatch({type: 'listCategory'});
-          }
-          if (pathname === '/category/tags') {
-            dispatch({type: 'listTags'});
           }
         });
     },

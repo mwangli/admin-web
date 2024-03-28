@@ -38,8 +38,8 @@ function Product({dispatch, data, loading}) {
     },
     {
       title: '标签',
-      dataIndex: 'tags',
-      key: 'tags',
+      dataIndex: 'favorCount',
+      key: 'favorCount',
 
     },
     {
@@ -54,9 +54,9 @@ function Product({dispatch, data, loading}) {
       key: 'operation',
       render: (record) => (
         <div>
-          <Link to='/product/edit'>
+          {/*<Link to='/product/edit'>*/}
             <a>编辑</a>
-          </Link>
+          {/*</Link>*/}
           <Divider type="vertical"/>
           <a onClick={deleteHandler.bind(null,record.id)}>删除</a>
         </div>
@@ -65,8 +65,8 @@ function Product({dispatch, data, loading}) {
   ];
   return (
     <div>
+      <Button type={"primary"}> 新增商品</Button>
       <Table
-
         loading={loading}
         columns={columns}
         dataSource={data}

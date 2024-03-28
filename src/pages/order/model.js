@@ -4,40 +4,31 @@ export default {
   namespace: 'order',
   state: {
     data: [],
+    pageInfo: {},
   },
   reducers: {
-    save(state, {payload: data}) {
-      return {data};
+    save(state, {payload: data, pageInfo}) {
+      return {data, pageInfo};
     },
   },
   effects: {
-    * listNew({}, {put}) {
-      const {data} = yield request('/api/order/list', {method: 'POST', body: {status: '0'}});
-      yield put({type: 'save', payload: data});
-    },
-    * listOld({}, {put}) {
-      const {data} = yield request('/api/order/list', {method: 'POST', body: {status: '1'}});
-      yield put({type: 'save', payload: data});
-    },
-    * getOrders({}, {put}) {
-      const {data} = yield request('/api/order/list', {method: 'POST'});
-      console.log(data);
-      yield put({type: 'save', payload: data});
+    * listOrder({}, {put}) {
+      const {data, pageInfo} = yield request('/api/order/list', {method: 'POST', body: {}});
+      yield put({type: 'save', payload: data, pageInfo});
     },
 
+    * crate({payload: {id, values}}, {put}) {
+      yield request(`/api/order/save`, {method: 'POST', body: values})
+      yield put({type: 'list'});
+    },
 
     * modify({payload: {id, values}}, {put}) {
-      yield request(`/api/order/${id}`, {method: 'PUT', body: values})
+      yield request(`/api/order/save/${id}`, {method: 'PUT', body: values})
       yield put({type: 'list'});
     },
 
     * remove({payload: id}, {put}) {
-      yield request(`/api/order/${id}`, {method: 'DELETE'});
-      yield put({type: 'list'});
-    },
-
-    * delivery({payload: {id, values}}, {put}) {
-      const data = yield request(`/api/order/delivery`, {method: 'POST', body: {id, ...values}});
+      yield request(`/api/order/delete`, {method: 'DELETE', body: [id]});
       yield put({type: 'list'});
     },
   },
@@ -46,11 +37,8 @@ export default {
     setup({dispatch, history}) {
       return history.listen(
         ({pathname}) => {
-          if (pathname === '/order/new') {
-            dispatch({type: 'listNew'});
-          }
-          if (pathname === '/order/old') {
-            dispatch({type: 'listOld'});
+          if (pathname === '/order') {
+            dispatch({type: 'listOrder'});
           }
         });
     },
