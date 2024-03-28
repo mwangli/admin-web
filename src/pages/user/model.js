@@ -12,7 +12,7 @@ export default {
   },
   effects: {
     * listUser({}, {put}) {
-      const data = yield request('/api/user/list', {method: 'POST', body: {}});
+      const {data} = yield request('/api/user/list', {method: 'POST', body: {}});
       yield put({type: 'save', payload: data});
     },
 
@@ -28,7 +28,7 @@ export default {
 
     * remove({payload: id}, {put}) {
       yield request(`/api/user/delete`, {method: 'DELETE', body: [id]});
-      yield put({type: 'list'});
+      yield put({type: 'listUser'});
     },
   },
 

@@ -46,8 +46,8 @@ function Product({dispatch, data, loading}) {
       title: '状态',
       // dataIndex: 'productStatus',
       key: 'productStatus',
-      render: record => <Badge status={record.status == 1 ? 'processing' : 'default'}
-                               text={record.status == 1 ? '在售' : '已售'}/>
+      render: record => <Badge status={record.status === 1 ? 'processing' : 'default'}
+                               text={record.status === 1 ? '在售' : '已售'}/>
     },
     {
       title: '操作',

@@ -23,7 +23,7 @@ export default {
 
     * delete({payload: id}, {put}) {
       yield request(`/api/product/delete`, {method: 'DELETE', body: [id]});
-      yield put({type: 'list'});
+      yield put({type: 'listProduct'});
     },
   },
 

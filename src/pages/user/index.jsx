@@ -1,5 +1,5 @@
 import { connect } from 'dva';
-import { Table, Button, Divider,Avatar,message } from 'antd';
+import {Table, Button, Divider, Avatar, message, Badge} from 'antd';
 
 // import ModalForm from '@/components/ModalForm';
 
@@ -7,7 +7,7 @@ function Author({ dispatch, data, loading }) {
 
   function deleteHandler(id) {
     dispatch({
-      type: 'author/remove',
+      type: 'user/remove',
       payload: id,
     });
     message.success("删除成功")
@@ -15,24 +15,19 @@ function Author({ dispatch, data, loading }) {
 
   function editHandler(id, values) {
     dispatch({
-      type: 'author/modify',
+      type: 'user/modify',
       payload: { id, values },
     });
   }
 
   function createHandler(values) {
     dispatch({
-      type: 'author/create',
+      type: 'user/create',
       payload: values,
     });
   }
 
   const columns = [
-    {
-      title: '头像',
-      key: 'avatar',
-      render: record => <Avatar src={JSON.parse(record.openUserInfo).avatarUrl} />
-    },
     {
       title: '姓名',
       dataIndex: 'name',
@@ -45,15 +40,33 @@ function Author({ dispatch, data, loading }) {
 
     },
     {
+      title: '手机号码',
+      dataIndex: 'phone',
+      key: 'phone',
+
+    },
+    {
+      title: '地址',
+      dataIndex: 'address',
+      key: 'address',
+    },
+    {
+      title: '用户状态',
+      dataIndex: 'userStatus',
+      key: 'userStatus',
+      render: record => <Badge status={record.userStatus === 1 ? 'processing' : 'default'}
+                               text={record.userStatus === 1 ? '正常' : '冻结'}/>,
+    },
+    {
       title: '操作',
       key: 'operation',
       render: (record) => (
         <div>
           {/*<ModalForm record={record} onOk={editHandler.bind(null, record.id)}>*/}
-          {/*  <a>编辑</a>*/}
+            <a>编辑</a>
           {/*</ModalForm>*/}
           <Divider type="vertical" />
-          {/*<a onClick={deleteHandler.bind(null, record.id)}>删除</a>*/}
+          <a onClick={deleteHandler.bind(null, record.id)}>删除</a>
         </div>
       ),
     },

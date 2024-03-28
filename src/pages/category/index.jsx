@@ -1,7 +1,7 @@
-import { connect } from 'dva';
-import { Table, Button, Divider,message } from 'antd';
+import {connect} from 'dva';
+import {Table, Button, Divider, message, Badge} from 'antd';
 
-function Category({ dispatch, data, loading }) {
+function Category({dispatch, data, loading}) {
 
   function deleteHandler(id) {
     dispatch({
@@ -13,20 +13,8 @@ function Category({ dispatch, data, loading }) {
 
   function editHandler(id, values) {
     dispatch({
-      type: 'order/modify',
-      payload: { id, values },
-    });
-  }
-
-  function getOldOrders() {
-    dispatch({
-      type: 'order/getOldOrders',
-    });
-  }
-
-  function deliveryHandler(id) {
-    dispatch({
-      type: 'order/delivery',
+      type: 'category/modify',
+      payload: {id, values},
     });
   }
 
@@ -46,14 +34,24 @@ function Category({ dispatch, data, loading }) {
       title: '分类描述',
       dataIndex: 'description',
       key: 'description',
-
+    },
+    {
+      title: '分类状态',
+      dataIndex: 'categoryStatus',
+      key: 'categoryStatus',
+      render: record => <Badge status={record.status === 1 ? 'processing' : 'warning'}
+                               text={record.status === 1 ? '可用' : '禁用'}/>
     },
     {
       title: '操作',
       key: 'operation',
-      render: (record) =>
-        <Button type="primary" size="small" ghost="true" icon ="gift"
-        onClick={deleteHandler.bind(null, record.id)}>删除</Button>
+      render: (record) => <div>
+        {/*<Link to='/product/edit'>*/}
+        <a>编辑</a>
+        {/*</Link>*/}
+        <Divider type="vertical"/>
+        <a onClick={deleteHandler.bind(null, record.id)}>删除</a>
+      </div>
     },
   ];
   const pagination = {
@@ -61,7 +59,7 @@ function Category({ dispatch, data, loading }) {
   };
   return (
     <div>
-      <Button type="primary" >新增分类</Button>
+      <Button type="primary">新增分类</Button>
       <Table
         pagination={pagination}
         loading={loading}
@@ -74,7 +72,7 @@ function Category({ dispatch, data, loading }) {
 }
 
 function mapStateToProps(state) {
-  const { data } = state.category;
+  const {data} = state.category;
   return {
     data,
     loading: state.loading.models.category,
