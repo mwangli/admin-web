@@ -47,8 +47,8 @@ function Category({dispatch, data, loading}) {
       title: '分类状态',
       dataIndex: 'categoryStatus',
       key: 'categoryStatus',
-      render: record => <Badge status={record.status === 1 ? 'processing' : 'warning'}
-                               text={record.status === 1 ? '可用' : '禁用'}/>
+      render: record => <Badge status={record.status == 1 ? 'processing' : 'warning'}
+                               text={record.status == 1 ? '可用' : '禁用'}/>
     },
     {
       title: '操作',

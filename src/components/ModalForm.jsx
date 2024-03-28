@@ -1,5 +1,5 @@
 import {Component} from 'react';
-import {Modal, Form, Input} from 'antd';
+import {Form, Input, Modal} from 'antd';
 
 const FormItem = Form.Item;
 
@@ -46,7 +46,8 @@ class ModalForm extends Component {
       labelCol: {span: 6},
       wrapperCol: {span: 14},
     };
-
+    // let entries = Object.entries(record);
+    // debugger
     return (
       <span>
         <span onClick={this.showModalHandler}>
@@ -73,8 +74,8 @@ class ModalForm extends Component {
                       dataType: item.dataType,
                       initialValue: this.state.isEdit ?
                         Object.entries(record)
-                          .filter((k,v)=>k=='pageSize')
-                          .map((k, v) => k+v).join(',') :
+                          .filter((e) => e[0] === item.dataIndex)
+                          .map((e) => e[1]).join(',') :
                         '',
                     })(<Input/>)
                   }

@@ -1,8 +1,9 @@
-import { connect } from 'dva';
-import { Table, Button, Divider, message, Tooltip, Drawer } from 'antd';
+import {connect} from 'dva';
+import {Button, Divider, message, Table, Tooltip} from 'antd';
 import DrawerInfo from '@/components/DrawerInfo'
+import ModalForm from "@/components/ModalForm";
 
-function Order({ dispatch, data, loading }) {
+function Order({dispatch, data, loading}) {
 
   function deleteHandler(id) {
     dispatch({
@@ -12,10 +13,17 @@ function Order({ dispatch, data, loading }) {
     message.success("删除成功")
   }
 
+  function createHandler(values) {
+    dispatch({
+      type: 'order/create',
+      payload: {values},
+    });
+  }
+
   function editHandler(id, values) {
     dispatch({
       type: 'order/modify',
-      payload: { id, values },
+      payload: {id, values},
     });
   }
 
@@ -34,7 +42,7 @@ function Order({ dispatch, data, loading }) {
       title: '金额',
       dataIndex: 'number',
       key: 'number',
-      dataType:'number'
+      dataType: 'number'
     },
     {
       title: '电话',
@@ -46,7 +54,7 @@ function Order({ dispatch, data, loading }) {
       dataIndex: 'address',
       key: 'address',
       render: (text) => <Tooltip placement="bottom" title={'好长好长好长好长好长好长好长好长好长好长好长的地址'}>
-        <span >地址缩略...</span>
+        <span>地址缩略...</span>
       </Tooltip>
     },
     {
@@ -62,18 +70,22 @@ function Order({ dispatch, data, loading }) {
         <div>
           <DrawerInfo/>
           <Divider type="vertical"/>
-          <a onClick={deleteHandler.bind(null,record.id)}>删除</a>
+          <a onClick={deleteHandler.bind(null, record.id)}>删除</a>
         </div>
     },
   ];
   const pagination = {
-    pageSize:8,
-    current:1,
+    pageSize: 8,
+    current: 1,
     // total:100
   };
   return (
     <div>
-      <Button type={"primary"}>新增订单</Button>
+      <ModalForm
+        columns={columns}
+        onOk={createHandler}>
+        <Button type={"primary"}>新增订单</Button>
+      </ModalForm>
       <Table
         pagination={pagination}
         loading={loading}
@@ -86,7 +98,7 @@ function Order({ dispatch, data, loading }) {
 }
 
 function mapStateToProps(state) {
-  const { data } = state.order;
+  const {data} = state.order;
   return {
     data,
     loading: state.loading.models.order,

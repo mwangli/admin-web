@@ -1,23 +1,27 @@
 import {Component} from 'react';
 import {Button, Form, Icon, Input, InputNumber, Select, Switch, Upload} from 'antd';
+import {connect} from "dva";
+import {router} from "umi";
 
 const {Option} = Select;
 
 class Demo extends Component {
 
-  state = {visible: false};
-
-  showDrawer = () => {
-    this.setState({
-      visible: true,
-    });
-  };
-
-  onClose = () => {
-    this.setState({
-      visible: false,
-    });
-  };
+  // state = {
+  //   visible: true
+  // };
+  //
+  // showDrawer = () => {
+  //   this.setState({
+  //     visible: true,
+  //   });
+  // };
+  //
+  // onClose = () => {
+  //   this.setState({
+  //     visible: false,
+  //   });
+  // };
 
 
   handleSubmit = e => {
@@ -26,7 +30,14 @@ class Demo extends Component {
       if (!err) {
         console.log('Received values of form: ', values);
         // debugger
-        this.props.saveHandler(values)
+        let {state} = this.props.location;
+        const record = state ? state.record : {}
+        const {dispatch} = this.props;
+        dispatch({
+          type: 'product/save',
+          payload: {...record,...values},
+        });
+        router.push('/product')
       }
     });
   };
@@ -39,33 +50,41 @@ class Demo extends Component {
     return e && e.fileList;
   };
 
+
   render() {
     const {getFieldDecorator} = this.props.form;
+
     const formItemLayout = {
       labelCol: {span: 6},
       wrapperCol: {span: 14},
     };
 
+    let {state} = this.props.location;
+    const isEdit = state ? state.isEdit : false
+    const record = state ? state.record : {}
+    console.log(record)
     return (
-      <span>
-        <Button onClick={this.showDrawer}>新增商品</Button>
-         <Form {...formItemLayout} onSubmit={this.handleSubmit} hidden={!this.state.visible}>
+      <Form {...formItemLayout} onSubmit={this.handleSubmit}>
         <Form.Item label="添加商品">
 
         </Form.Item>
-        <Form.Item label="作者" hasFeedback>
+        <Form.Item label="品类" hasFeedback>
           {getFieldDecorator('author', {
             rules: [{required: true, message: '必须填写该商品的作者'}],
           })(
-            <Select placeholder="请选择该商品的作者">
-              <Option value="china">作者甲</Option>
-              <Option value="usa">作者乙</Option>
-              <Option value="usa">作者丙</Option>
-              <Option value="usa">作者丁</Option>
+            <Select placeholder="请选择该商品类型" defaultValue={isEdit?record.categoryId:-1}>
+              <Option value={0}>品类一</Option>
+              <Option value={1}>品类二</Option>
+              <Option value={2}>品类三</Option>
+              <Option value={3}>品类四</Option>
+              <Option value={4}>其他品类</Option>
             </Select>,
           )}
         </Form.Item>
-
+        <Form.Item label="名称">
+          {getFieldDecorator('name', {initialValue: isEdit ? record.name : ''})(<Input
+            min={1} max={1000} width={600}/>)}
+        </Form.Item>
         <Form.Item label="标签">
           {getFieldDecorator('tag', {
             rules: [
@@ -80,16 +99,17 @@ class Demo extends Component {
           )}
         </Form.Item>
         <Form.Item label="价格">
-          {getFieldDecorator('price', {initialValue: 3})(<InputNumber min={1} max={1000}/>)}
+          {getFieldDecorator('price', {initialValue: isEdit ? record.price : ''})(<InputNumber
+            min={1} max={1000}/>)}
         </Form.Item>
         <Form.Item label="描述">
-          {getFieldDecorator('description', {initialValue: 3})(<Input/>)}
+          {getFieldDecorator('description', {initialValue: isEdit ? record.description : ''})(<Input/>)}
         </Form.Item>
         <Form.Item label="规格">
-          {getFieldDecorator('size', {initialValue: 3})(<Input/>)}
+          {getFieldDecorator('size', {initialValue: isEdit ? record.size : ''})(<Input/>)}
         </Form.Item>
         <Form.Item label="状态">
-          {getFieldDecorator('switch', {valuePropName: 'checked'})(<Switch/>)}
+          {getFieldDecorator('productStatus', {valuePropName: 'productStatus'})(<Switch/>)}
         </Form.Item>
         <Form.Item label="图片">
           {getFieldDecorator('iamges', {
@@ -113,10 +133,18 @@ class Demo extends Component {
 
         </Form.Item>
       </Form>
-      </span>
 
     );
   }
 }
 
-export default Form.create({name: 'validate_other'})(Demo);
+function mapStateToProps(state) {
+  const {data} = state.product;
+  return {
+    data,
+    loading: state.loading.models.product,
+  };
+}
+
+
+export default connect(mapStateToProps)(Form.create({name: 'validate_other'})(Demo));

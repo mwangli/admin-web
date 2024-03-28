@@ -17,13 +17,13 @@ export default {
       yield put({type: 'save', payload: data, pageInfo});
     },
 
-    * crate({payload: {id, values}}, {put}) {
-      yield request(`/api/order/save`, {method: 'POST', body: values})
+    * create({payload: {id, values}}, {put}) {
+      yield request(`/api/order/save`, {method: 'POST', body: {...values, status: 1}})
       yield put({type: 'listOrder'});
     },
 
     * modify({payload: {id, values}}, {put}) {
-      yield request(`/api/order/save`, {method: 'POST', body: {id,...values}})
+      yield request(`/api/order/save`, {method: 'POST', body: {id, ...values}})
       yield put({type: 'listOrder'});
     },
 

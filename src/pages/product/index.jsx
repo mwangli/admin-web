@@ -1,11 +1,10 @@
-import {Table, Button, Divider, message, Badge, Tag} from 'antd';
-import {Link} from 'react-router-dom';
+import {Badge, Button, Divider, message, Table} from 'antd';
 import {connect} from 'dva';
-import EditForm from "@/components/EditForm";
+import {Link} from "umi";
 
 function Product({dispatch, data, loading}) {
 
-  function deleteHandler (id) {
+  function deleteHandler(id) {
     dispatch({
       type: 'product/delete',
       payload: id,
@@ -27,6 +26,11 @@ function Product({dispatch, data, loading}) {
       key: 'name',
     },
     {
+      title: '品类',
+      dataIndex: 'categoryDesc',
+      key: 'categoryDesc',
+    },
+    {
       title: '价格',
       dataIndex: 'price',
       key: 'price',
@@ -44,28 +48,32 @@ function Product({dispatch, data, loading}) {
     },
     {
       title: '状态',
-      // dataIndex: 'productStatus',
+      dataIndex: 'productStatus',
       key: 'productStatus',
-      render: record => <Badge status={record.status === 1 ? 'processing' : 'default'}
-                               text={record.status === 1 ? '在售' : '已售'}/>
+      render: record => <Badge status={record.productStatus == 1 ? 'processing' : 'default'}
+                               text={record.productStatus == 1 ? '在售' : '已售'}/>
     },
     {
       title: '操作',
       key: 'operation',
       render: (record) => (
         <div>
-          {/*<Link to='/product/edit'>*/}
-            <a>编辑</a>
-          {/*</Link>*/}
+          <Link to={{
+            pathname: '/product/edit',
+            state: {record, isEdit: true}
+          }}><a>编辑</a></Link>
           <Divider type="vertical"/>
-          <a onClick={deleteHandler.bind(null,record.id)}>删除</a>
+          <a onClick={deleteHandler.bind(null, record.id)}>删除</a>
         </div>
       ),
     },
   ];
+
   return (
     <div>
-      <Button type={"primary"}> 新增商品</Button>
+      <Link to={'/product/edit'}>
+        <Button type={"primary"}>新增商品</Button>
+      </Link>
       <Table
         loading={loading}
         columns={columns}

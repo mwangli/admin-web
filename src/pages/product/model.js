@@ -17,13 +17,13 @@ export default {
     },
 
     * save({payload: values}, {put}) {
-      yield request(`/api/product/save`, {method: 'POST', body: values})
-      yield put({type: 'listProduct'});
+      yield request(`/api/product/save`, {method: 'POST', body: {...values, status: 1, productStatus: 1}})
+      // yield put({type: 'listProduct'});
     },
 
     * modify({payload: {id, values}}, {put}) {
       yield request(`/api/product/save`, {method: 'POST', body: {id, ...values}})
-      yield put({type: 'listProduct'});
+      // yield put({type: 'listProduct'});
     },
 
     * delete({payload: id}, {put}) {
@@ -40,8 +40,6 @@ export default {
             dispatch({type: 'listProduct'});
           }
         });
-
-
     },
   },
 }
