@@ -14,6 +14,21 @@ const { Option } = Select;
 
 class Demo extends Component {
 
+  state = { visible: false };
+
+  showDrawer = () => {
+    this.setState({
+      visible: true,
+    });
+  };
+
+  onClose = () => {
+    this.setState({
+      visible: false,
+    });
+  };
+
+
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
@@ -39,8 +54,9 @@ class Demo extends Component {
       labelCol: { span: 6 },
       wrapperCol: { span: 14 },
     };
+
     return (
-      <Form {...formItemLayout} onSubmit={this.handleSubmit}>
+      <Form {...formItemLayout} onSubmit={this.handleSubmit} hidden={!this.state.visible}>
         <Form.Item label="添加商品">
 
         </Form.Item>

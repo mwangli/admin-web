@@ -65,13 +65,16 @@ function Product({dispatch, data, loading}) {
   ];
   return (
     <div>
-      <Table
+     <EditForm>
 
-        loading={loading}
-        columns={columns}
-        dataSource={data}
-        rowKey={record => record.id}
-      />
+     </EditForm>
+      {/*<Table*/}
+
+      {/*  loading={loading}*/}
+      {/*  columns={columns}*/}
+      {/*  dataSource={data}*/}
+      {/*  rowKey={record => record.id}*/}
+      {/*/>*/}
     </div>
   );
 }

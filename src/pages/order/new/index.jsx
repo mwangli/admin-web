@@ -42,13 +42,13 @@ function Order({ dispatch, data, loading }) {
   const columns = [
     {
       title: '商品',
-      dataIndex: 'productId',
-      key: 'productId',
+      dataIndex: 'id',
+      key: 'id',
     },
     {
       title: '金额',
-      dataIndex: 'amount',
-      key: 'amount',
+      dataIndex: 'number',
+      key: 'number',
 
     },
     {

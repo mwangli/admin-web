@@ -110,14 +110,14 @@ class SiderDemo extends React.Component {
                 </span>
               }
             >
-              <Menu.Item key="/category/new">
-                <Link to="/product">
+              <Menu.Item key="/category/class">
+                <Link to="/category/class">
                   <Icon type="bars" />
                   <span>分类管理</span>
                 </Link>
               </Menu.Item>
               <Menu.Item key="/category/tags">
-                <Link to="/product">
+                <Link to="/category/tags">
                   <Icon type="tags" />
                   <span>标签商品</span>
                 </Link>

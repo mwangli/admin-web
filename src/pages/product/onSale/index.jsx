@@ -65,9 +65,6 @@ function Product({dispatch, data, loading}) {
   ];
   return (
     <div>
-     <EditForm >
-
-     </EditForm>
       <Table
 
         loading={loading}

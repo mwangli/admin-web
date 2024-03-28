@@ -44,8 +44,8 @@ function Order({ dispatch, data, loading }) {
     },
     {
       title: '金额',
-      dataIndex: 'amount',
-      key: 'amount',
+      dataIndex: 'number',
+      key: 'number',
 
     },
     {
