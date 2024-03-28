@@ -88,14 +88,14 @@ class SiderDemo extends React.Component {
                 </span>
               }
             >
-              <Menu.Item key="/product/new">
-                <Link to="/product">
+              <Menu.Item key="/product/onSale">
+                <Link to="/product/onSale">
                   <Icon type="shopping-cart" />
                   <span>在售商品</span>
                 </Link>
               </Menu.Item>
-              <Menu.Item key="/product/old">
-                <Link to="/product">
+              <Menu.Item key="/product/offSale">
+                <Link to="/product/offSale">
                   <Icon type="shopping" />
                   <span>下架商品</span>
                 </Link>
@@ -149,7 +149,7 @@ class SiderDemo extends React.Component {
         </Sider>
         <Layout>
           <Header style={{ background: '#fff', padding: 0 }}>
-            <h1 style={{ padding: '0 16px' }}>欢迎使用后台管理系统</h1>
+            <h1 style={{ padding: '0 16px' }}>欢迎使用电商后台管理系统</h1>
           </Header>
           <Content style={{ margin: '0 16px' }}>
             <Breadcrumb style={{ margin: '16px 0' }}>
@@ -161,7 +161,7 @@ class SiderDemo extends React.Component {
             </div>
           </Content>
           <Footer style={{ textAlign: 'center' }}>
-            后台管理系统 Design ©2019 Created by mwangli
+            电商后台管理系统 Design ©2019 Created by mwangli
           </Footer>
         </Layout>
       </Layout>

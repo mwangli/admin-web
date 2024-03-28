@@ -1,5 +1,5 @@
 import { connect } from 'dva';
-import { Table, Button, Divider, message, Tooltip } from 'antd';
+import { Table, Divider, message, Tooltip } from 'antd';
 import ModalForm from '../../../components/ModalForm'
 import DrawerInfo from '../../../components/DrawerInfo'
 function Order({ dispatch, data, loading }) {
@@ -20,7 +20,7 @@ function Order({ dispatch, data, loading }) {
     });
   }
 
-  function getOldOrers(id) {
+  function getOldOrders(id) {
     debugger
     dispatch({
       type: 'order/getOldOrders',

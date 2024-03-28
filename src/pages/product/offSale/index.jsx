@@ -1,6 +1,7 @@
 import {Table, Button, Divider, message, Badge, Tag} from 'antd';
 import {Link} from 'react-router-dom';
 import {connect} from 'dva';
+import EditForm from "@/components/EditForm";
 
 function Product({dispatch, data, loading}) {
 
@@ -39,7 +40,7 @@ function Product({dispatch, data, loading}) {
       title: '标签',
       dataIndex: 'tags',
       key: 'tags',
-      
+
     },
     {
       title: '状态',
@@ -64,10 +65,11 @@ function Product({dispatch, data, loading}) {
   ];
   return (
     <div>
-      <Link to='/product/edit'>
-        <Button type="primary">添加商品</Button>
-      </Link>
+     <EditForm >
+
+     </EditForm>
       <Table
+
         loading={loading}
         columns={columns}
         dataSource={data}

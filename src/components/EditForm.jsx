@@ -13,11 +13,14 @@ import {
 const { Option } = Select;
 
 class Demo extends Component {
+
   handleSubmit = e => {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
+        debugger
+        this.props.saveHandler(values)
       }
     });
   };
@@ -94,11 +97,11 @@ class Demo extends Component {
           )}
         </Form.Item>
         <Form.Item wrapperCol={{ span: 12, offset: 6 }}>
-          <Button type="primary" htmlType="submit"  style={{marginRight:60}}> 保存</Button>   
-            <Button type="primary" htmlType="cancel"> 取消 </Button>
+          <Button type="primary" htmlType="submit"  style={{marginRight:60}}> 保存</Button>
+          <Button type="primary" htmlType="cancel"> 取消 </Button>
         </Form.Item>
         <Form.Item wrapperCol={{ span: 12, offset: 6 }}>
-         
+
         </Form.Item>
       </Form>
     );
