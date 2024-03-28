@@ -57,7 +57,7 @@ function Category({ dispatch, data, loading }) {
     },
   ];
   const pagination = {
-    pageSize:10
+    // pageSize:10
   };
   return (
     <div>
@@ -80,7 +80,5 @@ function mapStateToProps(state) {
     loading: state.loading.models.category,
   };
 }
-
-
 
 export default connect(mapStateToProps)(Category);

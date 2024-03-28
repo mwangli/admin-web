@@ -1,7 +1,7 @@
 import { connect } from 'dva';
 import { Table, Button, Divider,Avatar,message } from 'antd';
 
-import ModalForm from '@/components/ModalForm';
+// import ModalForm from '@/components/ModalForm';
 
 function Author({ dispatch, data, loading }) {
 
@@ -30,7 +30,7 @@ function Author({ dispatch, data, loading }) {
   const columns = [
     {
       title: '头像',
-      key: 'avator',
+      key: 'avatar',
       render: record => <Avatar src={JSON.parse(record.openUserInfo).avatarUrl} />
     },
     {
@@ -49,23 +49,23 @@ function Author({ dispatch, data, loading }) {
       key: 'operation',
       render: (record) => (
         <div>
-          <ModalForm record={record} onOk={editHandler.bind(null, record.id)}>
-            <a>编辑</a>
-          </ModalForm>
+          {/*<ModalForm record={record} onOk={editHandler.bind(null, record.id)}>*/}
+          {/*  <a>编辑</a>*/}
+          {/*</ModalForm>*/}
           <Divider type="vertical" />
-          <a onClick={deleteHandler.bind(null, record.id)}>删除</a>
+          {/*<a onClick={deleteHandler.bind(null, record.id)}>删除</a>*/}
         </div>
       ),
     },
   ];
   return (
     <div>
-      <ModalForm
-      record={{}}
-      onOk={createHandler}
-      >
-        <Button type="primary">添加作者</Button>
-      </ModalForm>
+      {/*<ModalForm*/}
+      {/*record={{}}*/}
+      {/*onOk={createHandler}*/}
+      {/*>*/}
+      {/*</ModalForm>*/}
+      <Button type="primary">新增用户</Button>
       <Table
         loading={loading}
         columns={columns}
