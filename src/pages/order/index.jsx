@@ -34,7 +34,7 @@ function Order({ dispatch, data, loading }) {
       title: '金额',
       dataIndex: 'number',
       key: 'number',
-
+      dataType:'number'
     },
     {
       title: '电话',

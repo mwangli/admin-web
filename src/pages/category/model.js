@@ -17,17 +17,17 @@ export default {
     },
 
     * create({payload: values}, {put}) {
-      yield request(`/api/category`, {method: 'POST', body: values})
-      yield put({type: 'list'});
+      yield request(`/api/category/save`, {method: 'POST', body: {...values, status: 1}})
+      yield put({type: 'listCategory'});
     },
 
     * modify({payload: {id, values}}, {put}) {
-      yield request(`/api/category/${id}`, {method: 'PUT', body: values})
-      yield put({type: 'list'});
+      yield request(`/api/category/save`, {method: 'POST', body: {id, ...values}})
+      yield put({type: 'listCategory'});
     },
 
     * remove({payload: id}, {put}) {
-      yield request(`/api/category/delete`, {method: 'DELETE', body:[id]});
+      yield request(`/api/category/delete`, {method: 'DELETE', body: [id]});
       yield put({type: 'listCategory'});
     },
   },

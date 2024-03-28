@@ -1,5 +1,5 @@
-import { Component } from 'react';
-import { Modal, Form, Input } from 'antd';
+import {Component} from 'react';
+import {Modal, Form, Input} from 'antd';
 
 const FormItem = Form.Item;
 
@@ -9,6 +9,7 @@ class ModalForm extends Component {
     super(props);
     this.state = {
       visible: false,
+      isEdit: props.isEdit,
     };
   }
 
@@ -26,9 +27,10 @@ class ModalForm extends Component {
   };
 
   okHandler = () => {
-    const { onOk } = this.props;
+    const {onOk} = this.props;
     this.props.form.validateFields((err, values) => {
       if (!err) {
+        // console.log(values)
         onOk(values);
         this.hideModelHandler();
         this.props.form.resetFields();
@@ -38,12 +40,11 @@ class ModalForm extends Component {
   };
 
   render() {
-    const { children, columns,record } = this.props;
-    const { getFieldDecorator } = this.props.form;
-  
+    const {children, columns, record} = this.props;
+    const {getFieldDecorator} = this.props.form;
     const formItemLayout = {
-      labelCol: { span: 6 },
-      wrapperCol: { span: 14 },
+      labelCol: {span: 6},
+      wrapperCol: {span: 14},
     };
 
     return (
@@ -60,16 +61,24 @@ class ModalForm extends Component {
           cancelText={"取消"}
         >
           <Form horizontal="true" onSubmit={this.okHandler}>
-            {columns.map(item => <FormItem
-              {...formItemLayout}
-              label={item.label}
-            >
-              {
-                getFieldDecorator(item.dataIndex, {
-                  // initialValue: record.item.dataIndex,s
-                })(<Input />)
-              }
-            </FormItem>)}
+            {
+
+              columns.filter(i => i.key !== "operation" && i.key !== "id")
+                .map(item => <FormItem
+                  {...formItemLayout}
+                  label={item.title}
+                >
+                  {
+                    getFieldDecorator(item.key, {
+                      dataType: item.dataType,
+                      initialValue: this.state.isEdit ?
+                        Object.entries(record)
+                          .filter((k,v)=>k=='pageSize')
+                          .map((k, v) => k+v).join(',') :
+                        '',
+                    })(<Input/>)
+                  }
+                </FormItem>)}
             {/* <FormItem
               {...formItemLayout}
               label="标题"

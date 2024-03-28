@@ -1,5 +1,6 @@
 import {connect} from 'dva';
 import {Table, Button, Divider, message, Badge} from 'antd';
+import ModalForm from "@/components/ModalForm";
 
 function Category({dispatch, data, loading}) {
 
@@ -9,6 +10,13 @@ function Category({dispatch, data, loading}) {
       payload: id,
     });
     message.success("删除成功")
+  }
+
+  function createHandler(id, values) {
+    dispatch({
+      type: 'category/create',
+      payload: {id, values},
+    });
   }
 
   function editHandler(id, values) {
@@ -46,9 +54,13 @@ function Category({dispatch, data, loading}) {
       title: '操作',
       key: 'operation',
       render: (record) => <div>
-        {/*<Link to='/product/edit'>*/}
-        <a>编辑</a>
-        {/*</Link>*/}
+        <ModalForm isEdit={true}
+                   record={record}
+                   columns={columns}
+                   onOk={editHandler.bind(null, record.id)
+                   }>
+          <a>编辑</a>
+        </ModalForm>
         <Divider type="vertical"/>
         <a onClick={deleteHandler.bind(null, record.id)}>删除</a>
       </div>
@@ -59,7 +71,13 @@ function Category({dispatch, data, loading}) {
   };
   return (
     <div>
-      <Button type="primary">新增分类</Button>
+      <ModalForm
+        // record={{}}
+        columns={columns}
+        onOk={createHandler}
+      >
+        <Button type="primary">新增分类</Button>
+      </ModalForm>
       <Table
         pagination={pagination}
         loading={loading}

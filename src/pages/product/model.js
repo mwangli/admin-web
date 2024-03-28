@@ -18,7 +18,12 @@ export default {
 
     * save({payload: values}, {put}) {
       yield request(`/api/product/save`, {method: 'POST', body: values})
-      yield put({type: 'list'});
+      yield put({type: 'listProduct'});
+    },
+
+    * modify({payload: {id, values}}, {put}) {
+      yield request(`/api/product/save`, {method: 'POST', body: {id, ...values}})
+      yield put({type: 'listProduct'});
     },
 
     * delete({payload: id}, {put}) {

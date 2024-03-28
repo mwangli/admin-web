@@ -17,13 +17,13 @@ export default {
     },
 
     * create({payload: values}, {put}) {
-      yield request(`/api/user/save`, {method: 'POST', body: values})
-      yield put({type: 'list'});
+      yield request(`/api/user/save`, {method: 'POST', body: {...values, status: 1}})
+      yield put({type: 'listUser'});
     },
 
     * modify({payload: {id, values}}, {put}) {
-      yield request(`/api/user/save`, {method: 'PUT', body: values})
-      yield put({type: 'list'});
+      yield request(`/api/user/save`, {method: 'POST', body: {id, ...values}})
+      yield put({type: 'listUser'});
     },
 
     * remove({payload: id}, {put}) {

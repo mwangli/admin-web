@@ -19,12 +19,12 @@ export default {
 
     * crate({payload: {id, values}}, {put}) {
       yield request(`/api/order/save`, {method: 'POST', body: values})
-      yield put({type: 'list'});
+      yield put({type: 'listOrder'});
     },
 
     * modify({payload: {id, values}}, {put}) {
-      yield request(`/api/order/save/${id}`, {method: 'PUT', body: values})
-      yield put({type: 'list'});
+      yield request(`/api/order/save`, {method: 'POST', body: {id,...values}})
+      yield put({type: 'listOrder'});
     },
 
     * remove({payload: id}, {put}) {

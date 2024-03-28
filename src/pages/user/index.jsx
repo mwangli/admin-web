@@ -1,9 +1,9 @@
-import { connect } from 'dva';
+import {connect} from 'dva';
 import {Table, Button, Divider, Avatar, message, Badge} from 'antd';
 
-// import ModalForm from '@/components/ModalForm';
+import ModalForm from '@/components/ModalForm';
 
-function Author({ dispatch, data, loading }) {
+function Author({dispatch, data, loading}) {
 
   function deleteHandler(id) {
     dispatch({
@@ -16,7 +16,7 @@ function Author({ dispatch, data, loading }) {
   function editHandler(id, values) {
     dispatch({
       type: 'user/modify',
-      payload: { id, values },
+      payload: {id, values},
     });
   }
 
@@ -54,6 +54,7 @@ function Author({ dispatch, data, loading }) {
       title: '用户状态',
       dataIndex: 'userStatus',
       key: 'userStatus',
+      dataType: 'number',
       render: record => <Badge status={record.userStatus === 1 ? 'processing' : 'default'}
                                text={record.userStatus === 1 ? '正常' : '冻结'}/>,
     },
@@ -62,10 +63,14 @@ function Author({ dispatch, data, loading }) {
       key: 'operation',
       render: (record) => (
         <div>
-          {/*<ModalForm record={record} onOk={editHandler.bind(null, record.id)}>*/}
+          <ModalForm isEdit={true}
+                     record={record}
+                     columns={columns}
+                     onOk={editHandler.bind(null, record.id)
+                     }>
             <a>编辑</a>
-          {/*</ModalForm>*/}
-          <Divider type="vertical" />
+          </ModalForm>
+          <Divider type="vertical"/>
           <a onClick={deleteHandler.bind(null, record.id)}>删除</a>
         </div>
       ),
@@ -73,12 +78,13 @@ function Author({ dispatch, data, loading }) {
   ];
   return (
     <div>
-      {/*<ModalForm*/}
-      {/*record={{}}*/}
-      {/*onOk={createHandler}*/}
-      {/*>*/}
-      {/*</ModalForm>*/}
-      <Button type="primary">新增用户</Button>
+      <ModalForm
+        // record={{}}
+        columns={columns}
+        onOk={createHandler}
+      >
+        <Button type="primary">新增用户</Button>
+      </ModalForm>
       <Table
         loading={loading}
         columns={columns}
@@ -90,7 +96,7 @@ function Author({ dispatch, data, loading }) {
 }
 
 function mapStateToProps(state) {
-  const { data } = state.user;
+  const {data} = state.user;
   return {
     data,
     loading: state.loading.models.user,
